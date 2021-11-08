@@ -1,0 +1,372 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>Socket.IO chat</title>
+  <style>
+    body {
+      margin: 0;
+      padding-bottom: 3rem;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    .bottom_bar {
+      background: rgb(34, 180, 5);
+      padding: 0.25rem;
+      position: fixed;
+      bottom: 70px;
+      left: 0;
+      right: 0;
+      display: flex;
+      height: 3rem;
+      box-sizing: border-box;
+      width: 700px;
+    }
+
+    #messageInput {
+      border: none;
+      padding: 0 1rem;
+      flex-grow: 1;
+      border-radius: 2rem;
+      margin: 0.25rem;
+    }
+
+    #nicknameInput {
+      border: none;
+      padding: 0 1rem;
+      border-radius: 2rem;
+      margin: 0.25rem;
+    }
+
+
+    #sendButton {
+      background: rgba(240, 250, 255, 0.952);
+      border: none;
+      padding: 0 1rem;
+      margin: 0.25rem;
+      border-radius: 3px;
+      outline: none;
+      color: rgb(0, 0, 0);
+      cursor: pointer;
+    }
+
+    #messageInput:focus {
+      outline: none;
+    }
+
+    #messagesList {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    #messagesList>li {
+      padding: 0.5rem 1rem;
+      background-color: chartreuse;
+      
+    }
+
+    #messagesList>li:nth-child(odd) {
+      background: #efefef;
+    }
+  </style>
+</head>
+
+<body>
+  <ul id="messagesList"></ul>
+  <div class="bottom_bar">
+    <input id="nicknameInput" placeholder="Nickname" />
+    <input id="messageInput" autocomplete="off" placeholder="Type a message" />
+    <button id="sendButton">Send</button>
+  </div>
+  <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+  <script>
+    const socket = io();
+    const messagesList = document.getElementById('messagesList');
+    const messageInput = document.getElementById('messageInput');
+    const nicknameInput = document.getElementById('nicknameInput');
+   
+    const sendButton = document.getElementById('sendButton');
+    sendButton.addEventListener('click', function () {
+      socket.emit('chat message', nicknameInput.value + ": " + messageInput.value);
+      messageInput.value = '';
+    });
+    socket.on('chat message', function (msg) {
+      messagesList.innerHTML += `<li>${msg}</li>`;
+      window.scrollTo(0, document.body.scrollHeight);
+    });
+
+    messageInput.addEventListener("keyup", function (event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        sendButton.click();
+      }
+    });
+
+  </script>
+</body>
+
+</html>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+
+body{
+    background-image: url('https://wallpapercave.com/wp/wp4064343.jpg ');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+
+div{
+    display: flex;
+    justify-content: center;
+    position: fixed;
+  
+}
+
+
+
+
+button{
+    height: 50px;
+    width: 100px;
+    margin: 10px;
+    background-color: rgba(255, 255, 255, 0.103);
+    color: rgb(251, 255, 255);
+    border: 1px ridge white;
+    font-size: 17px;
+    font-family: serif;
+  
+       
+}
+
+
+button:hover{
+    height: 50px;
+    width: 100px;
+    margin: 10px;
+    background-color: rgba(28, 124, 250, 0.979);
+    color: rgba(255, 255, 255, 0.979);
+    border: 1px ridge white;
+    font-size: 17px;
+    font-family: serif;
+}
+
+button:active{
+    height: 50px;
+    width: 100px;
+    margin: 10px;
+    background-color: rgba(233, 10, 10, 0);
+    color: rgba(255, 255, 255, 0.979);
+    border: 1px ridge white;
+    font-size: 17px;
+    font-family: serif;
+}
+
+
+.box1{
+
+color: rgb(255, 241, 241);
+font-size: 50px;
+float: left;
+margin-left: 3%;
+position: relative;
+left: 1%;
+top: 340px;
+letter-spacing: 1px;
+font-family:serif
+
+
+}
+
+h2{
+    color: rgb(51, 255, 0);
+    position: relative;
+     left: -9%;
+     font-size: 70px;
+     text-shadow: green;
+    
+}
+
+    </style>
+</head>
+<body>
+    
+
+<div>
+    <button id="b1">
+        Tiger photo
+    </button>
+
+
+
+    <button id="b2">
+        Neon photos</button>
+        <button id="b8">
+            Valley photos</button>
+        
+            <button id="b4">
+                Football photos</button>
+            
+                <button id="b2">
+                    Music photos</button>
+                
+                       <button id="b6">
+        Nature photos</button>
+    
+           <button id="b5">
+        Cars photos</button>
+    
+           <button id="b2">
+        Houses photos</button>
+    
+           <button id="b3">
+        UFC photos</button>
+    
+           <button id="b7">
+        City photos</button>
+
+
+        
+
+
+</div>
+
+
+
+
+
+
+<div class="box1">
+    <h2 id="days1"></h2>
+    <h4>DAYS</h4>
+</div>
+<div class="box1">
+    <h2 id="hours1"></h2>
+    <h4>HOURS</h4>
+</div>
+<div class="box1">
+    <h2 id="minutes1"></h2>
+    <h4>MINUTES</h4>
+</div>
+<div class="box1">
+    <h2 id="seconds1"></h2>
+    <h4>SECONDS</h4>
+</div>
+
+
+
+
+
+
+
+<script>
+
+let bb1 = document.querySelector('#b1')
+let bb2 = document.querySelector('#b2')
+let bb3 = document.querySelector('#b3')
+let bb4 = document.querySelector('#b4')
+let bb5 = document.querySelector('#b5')
+let bb6 = document.querySelector('#b6')
+let bb7 = document.querySelector('#b7')
+let bb8 = document.querySelector('#b8')
+
+
+
+
+bb1.addEventListener('click', () =>{
+});
+
+bb2.addEventListener('click', () =>{
+    document.body.style.backgroundImage ="url('neo.jpeg')"
+
+});
+
+bb3.addEventListener('click', () =>{
+    document.body.style.backgroundImage ="url(' https://i2-prod.mirror.co.uk/incoming/article9250887.ece/ALTERNATES/n615/MMA-UFC-205-McGregor-vs-Alvarez.jpg ')"
+});
+
+bb4.addEventListener('click', () =>{
+    document.body.style.backgroundImage ="url('  https://c4.wallpaperflare.com/wallpaper/16/671/726/lionel-messi-football-barcelona-hd-wallpaper-preview.jpg')"
+});
+bb5.addEventListener('click', () =>{
+    document.body.style.backgroundImage ="url(' https://images.unsplash.com/photo-1493238792000-8113da705763?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80')"
+});
+
+
+bb6.addEventListener('click', () =>{
+    document.body.style.backgroundImage ="url('https://i.pinimg.com/originals/1a/58/30/1a5830c8c6a4c011a027a75163b644c2.jpg')"
+  
+    if(bb6 != 'null'){
+       
+    bb6.style.backgroundColor = 'red'
+   
+    }else{
+        
+         bb6.style.color = 'white'
+    }
+ 
+});
+
+bb7.addEventListener('click', () =>{
+    document.body.style.backgroundImage ="url(' https://wallpaperaccess.com/full/819751.jpg  ')"
+});
+
+bb8.addEventListener('click', () =>{
+    document.body.style.backgroundImage ="url(' https://wallpapercave.com/wp/wp4064343.jpg ')"
+});
+
+
+
+
+
+
+
+
+
+
+
+
+var count = new Date("jan 1, 2022 00:00:00").getTime();
+         var x = setInterval(function(){
+    var now = new Date().getTime();
+    var d = count - now;
+    
+    var days = Math.floor(d/(1000*60*60*24));
+    var hours = Math.floor((d%(1000*60*60*24)) / (1000*60*60));
+    var minutes = Math.floor((d%(1000*60*60)) / (1000*60));
+    var seconds = Math.floor((d%(1000*60)) / 1000);
+
+    document.getElementById("days1").innerHTML = days;
+    document.getElementById("hours1").innerHTML = hours;
+    document.getElementById("minutes1").innerHTML = minutes;
+    document.getElementById("seconds1").innerHTML = seconds;
+
+          }, 1000)
+
+</script>
+</body>
+</html> -->
